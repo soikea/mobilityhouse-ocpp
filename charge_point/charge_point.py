@@ -1,4 +1,5 @@
 import asyncio
+import os, sys
 
 try:
     import websockets
@@ -10,6 +11,12 @@ except ModuleNotFoundError:
     import sys
     sys.exit(1)
 
+try:  
+   os.environ["CSMS_WS_ENDPOINT"]
+   csms_endpoint = os.getenv('CSMS_WS_ENDPOINT')
+except KeyError: 
+   print('Please set the environment variable CSMS_WS_ENDPOINT')
+   sys.exit(1)
 
 from ocpp.v16 import call
 from ocpp.v16 import ChargePoint as cp
@@ -31,19 +38,17 @@ class ChargePoint(cp):
 
 async def main():
     async with websockets.connect(
-        'ws://localhost:9000/CP_1',
-         subprotocols=['ocpp1.6']
+        csms_endpoint,
+        subprotocols=['ocpp1.6']
     ) as ws:
-
         cp = ChargePoint('CP_1', ws)
-
         await asyncio.gather(cp.start(), cp.send_boot_notification())
-
 
 if __name__ == '__main__':
     try:
         # asyncio.run() is used when running this example with Python 3.7 and
         # higher.
+        print('Connecting to CSMS endpoint:', csms_endpoint)
         asyncio.run(main())
     except AttributeError:
         # For Python 3.6 a bit more code is required to run the main() task on
