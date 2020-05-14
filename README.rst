@@ -41,6 +41,12 @@ Docker start
 
         $ docker-compose up -d
 
+    With logs attached:
+
+    .. code-block:: bash
+
+        $ docker-compose up
+
 .. note::
 
     To run both either or:

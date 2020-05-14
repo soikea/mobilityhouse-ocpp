@@ -8,11 +8,9 @@ services:
     volumes:
       - ./:/mobilityhouse-ocpp-central-system
     working_dir: /mobilityhouse-ocpp-central-system
-    expose: 
-      - 9000
     ports:
       - 9000:9000
-    command: python3 ./central_system/central_system.py
+    command: python3 -u ./central_system/central_system.py
   mobilityhouse-ocpp-charge-point:
     build:
       context: .
@@ -23,6 +21,6 @@ services:
     working_dir: /mobilityhouse-ocpp-charge-point
     environment:
       - CSMS_WS_ENDPOINT=ws://${CSMS_WS_ENDPOINT}:9000/CP_1
-    command: python3 ./charge_point/charge_point.py
+    command: python3 -u ./charge_point/charge_point.py
     depends_on: 
       - mobilityhouse-ocpp-central-system
