@@ -33,7 +33,6 @@ Or clone the project and install it manually using:
 
 Docker start
 ------------
-.. note::
 
     To run both central system (csms server) and charge point (client):
     
@@ -47,21 +46,18 @@ Docker start
 
         $ docker-compose up
 
-.. note::
-
     To run both either or:
 
     .. code-block:: bash
 
         $ docker-compose up -d mobilityhouse-ocpp-charge-point
 
-.. note::
 
     To change csms endpoint of charge-point to connect to use .env:
 
     .. code-block:: bash
 
-    CSMS_WS_ENDPOINT=ec2-63-35-202-56.eu-west-1.compute.amazonaws.com  
+        $ CSMS_WS_ENDPOINT=ec2-63-35-202-56.eu-west-1.compute.amazonaws.com  
 
 Quick start
 -----------
